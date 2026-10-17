@@ -4,18 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f2f2f7">
+  <meta name="color-scheme" content="light only">
   <title>Get your shop's tap page · sdhiryan</title>
   <style>
     :root {
       --accent: #0a84ff; --wa: #25d366; --bg: #f2f2f7; --surface: #fff; --label: #000;
-      --label-2: rgba(60, 60, 67, .62); --label-3: rgba(60, 60, 67, .3); --sep: rgba(60, 60, 67, .14);
+      --label-2: rgba(60, 60, 67, .78); --label-3: rgba(60, 60, 67, .3); --sep: rgba(60, 60, 67, .14);
       --fill: rgba(120, 120, 128, .12); --red: #ff3b30; --green: #34c759;
       --ease: cubic-bezier(.32, .72, 0, 1); --ease-out: cubic-bezier(.22, 1, .36, 1); --spring: cubic-bezier(.34, 1.4, .64, 1);
       --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, system-ui, sans-serif;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg: #000; --surface: #1c1c1e; --label: #fff; --label-2: rgba(235, 235, 245, .62); --label-3: rgba(235, 235, 245, .3);
-        --sep: rgba(84, 84, 88, .6); --fill: rgba(120, 120, 128, .24); color-scheme: dark; }
+      color-scheme: light;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; background: var(--bg); }
@@ -26,8 +24,8 @@
 
     header { padding: 0 6px 8px; animation: rise .8s var(--ease-out) backwards; }
     .by { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--label-2); margin-bottom: 14px; }
-    .by i { width: 26px; height: 26px; border-radius: 8px; background: var(--wa); display: grid; place-items: center; }
-    .by svg { width: 15px; height: 15px; fill: #fff; }
+    .by i { width: 26px; height: 26px; border-radius: 8px; background: #1c1c1e; display: grid; place-items: center; }
+    .by svg { width: 15px; height: 15px; }
     h1 { margin: 0; font-size: 34px; line-height: 1.08; font-weight: 700; letter-spacing: -.04em; }
     .lead { margin: 10px 0 0; font-size: 16px; line-height: 1.45; color: var(--label-2); }
     .lead b { color: var(--label); font-weight: 600; }
@@ -36,27 +34,33 @@
     .meter-label { font-size: 12px; color: var(--label-2); }
 
     section { margin-top: 30px; animation: rise .7s var(--ease-out) backwards; }
-    section[hidden] { display: none; }
-    section.reveal { animation: rise .5s var(--ease-out) backwards; }
     section h2 { margin: 0 6px 2px; font-size: 21px; font-weight: 700; letter-spacing: -.03em; }
     section .hi { margin: 0 6px 10px; font-size: 13px; color: var(--label-2); }
     .card { background: var(--surface); border-radius: 18px; padding: 2px 16px; }
     .row { padding: 12px 0; position: relative; }
     .row + .row::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: .5px; background: var(--sep); }
-    .row label, .row .lbl { display: block; font-size: 13px; font-weight: 600; color: var(--label-2); margin-bottom: 4px; }
+    .row label, .row .lbl { display: block; font-size: 14px; font-weight: 600; color: var(--label-2); margin-bottom: 6px; }
     .row label small, .row .lbl small { font-weight: 400; margin-left: 4px; }
     .req { color: var(--red); margin-left: 2px; }
     .row input, .row textarea { width: 100%; border: 0; outline: 0; background: none; padding: 4px 0; font-size: 17px; }
-    .row textarea { resize: none; min-height: 72px; line-height: 1.4; }
+    .row textarea { resize: none; min-height: 64px; line-height: 1.4; }
     .row input::placeholder, .row textarea::placeholder { color: var(--label-3); }
-    .row.invalid label { color: var(--red); }
+    .row.invalid label, .row.invalid .lbl { color: var(--red); }
     .row.shake { animation: shake .45s; }
     .note { margin: 8px 6px 0; font-size: 12.5px; line-height: 1.4; color: var(--label-2); }
 
     .chips { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; }
-    .chip { padding: 8px 14px; border-radius: 999px; background: var(--fill); font-size: 15px; font-weight: 500; transition: background-color .25s, color .25s, transform .3s var(--spring); }
+    .chip { padding: 10px 16px; border-radius: 999px; background: var(--fill); font-size: 15.5px; font-weight: 500; transition: background-color .25s, color .25s, transform .3s var(--spring); }
     .chip:active { transform: scale(.94); }
-    .chip[aria-pressed="true"] { background: var(--label); color: var(--bg); }
+    .chip[aria-pressed="true"] { background: var(--accent); color: #fff; }
+    .other { display: none; margin-top: 10px; }
+    .other.show { display: block; animation: rise .35s var(--ease-out); }
+    .other input { width: 100%; border: 0; outline: 0; background: var(--fill); border-radius: 12px; padding: 12px 14px; font-size: 17px; }
+    .loc { display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 12px; background: var(--fill); color: var(--accent); font-size: 16px; font-weight: 600; transition: transform .3s var(--spring); }
+    .loc:active { transform: scale(.96); }
+    .loc.ok { background: color-mix(in srgb, var(--green) 16%, transparent); color: #1f8a3a; }
+    .loc-status { display: block; font-size: 13px; color: var(--label-2); margin-top: 8px; }
+    .or { display: block; font-size: 13px; color: var(--label-2); margin: 12px 0 2px; }
 
     .toggle { display: flex; align-items: center; gap: 12px; padding: 13px 0; position: relative; cursor: pointer; }
     .toggle + .toggle::before { content: ""; position: absolute; top: 0; left: 44px; right: 0; height: .5px; background: var(--sep); }
@@ -71,11 +75,24 @@
     .switch input:checked + span { background: var(--green); }
     .switch input:checked + span::after { transform: translateX(20px); }
 
-    .photos { list-style: none; margin: 0; padding: 4px 0; }
-    .photos li { display: flex; gap: 12px; padding: 12px 0; position: relative; font-size: 16px; }
-    .photos li + li::before { content: ""; position: absolute; top: 0; left: 40px; right: 0; height: .5px; background: var(--sep); }
-    .photos li span:first-child { width: 28px; text-align: center; font-size: 20px; flex: none; }
-    .photos small { display: block; font-size: 12.5px; color: var(--label-2); margin-top: 2px; }
+    /* photo pickers */
+    .pick { display: flex; align-items: center; gap: 12px; }
+    .pick-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 12px; background: var(--fill); color: var(--accent); font-size: 16px; font-weight: 600; cursor: pointer; transition: transform .3s var(--spring); }
+    .pick-btn:active { transform: scale(.96); }
+    .pick input[type=file] { display: none; }
+    .thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .thumbs:empty { display: none; }
+    .thumbs img { width: 64px; height: 64px; object-fit: cover; border-radius: 10px; background: var(--fill); animation: pop .4s var(--spring); }
+    .clear { font-size: 14px; color: var(--red); font-weight: 500; }
+    .clear[hidden] { display: none; }
+
+    /* advance payment */
+    .qr { display: block; width: min(260px, 80%); margin: 14px auto 6px; border-radius: 16px; box-shadow: 0 6px 24px rgba(0, 0, 0, .08); }
+    .upi { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 4px 0 12px; font-size: 15px; }
+    .upi code { font: 600 15px ui-monospace, "SF Mono", Menlo, monospace; }
+    .upi button { color: var(--accent); font-weight: 600; font-size: 15px; padding: 6px 2px; }
+    .paybtn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 15px; border-radius: 14px; background: #1c1c1e; color: #fff; font-size: 17px; font-weight: 600; text-decoration: none; margin-bottom: 4px; transition: transform .3s var(--spring); }
+    .paybtn:active { transform: scale(.97); }
 
     .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
       background: color-mix(in srgb, var(--bg) 78%, transparent); -webkit-backdrop-filter: blur(24px) saturate(1.8); backdrop-filter: blur(24px) saturate(1.8);
@@ -85,19 +102,24 @@
       box-shadow: 0 8px 24px rgba(37, 211, 102, .3); transition: transform .3s var(--spring); }
     .send:active { transform: scale(.97); transition-duration: .1s; }
     .send svg { width: 22px; height: 22px; fill: #fff; }
+    .send[hidden] { display: none; }
 
-    .done { display: none; text-align: center; padding: 60px 10px 20px; }
+    .done { display: none; text-align: center; padding: 50px 10px 20px; }
     body.sent .done { display: block; animation: rise .6s var(--ease-out); }
     body.sent form, body.sent .bar, body.sent header { display: none; }
-    .done .check { width: 88px; height: 88px; margin: 0 auto 18px; color: var(--green); }
+    .done .check { width: 84px; height: 84px; margin: 0 auto 16px; color: var(--green); }
     .done circle { stroke-dasharray: 150; stroke-dashoffset: 150; animation: draw .7s var(--ease-out) .1s forwards; }
     .done path { stroke-dasharray: 40; stroke-dashoffset: 40; animation: draw .45s var(--ease-out) .6s forwards; }
     .done h2 { margin: 0 0 8px; font-size: 26px; letter-spacing: -.035em; }
-    .done p { margin: 0 auto 22px; max-width: 360px; color: var(--label-2); line-height: 1.45; }
-    .done .card { text-align: left; margin-bottom: 18px; }
+    .done p { margin: 0 auto 20px; max-width: 360px; color: var(--label-2); line-height: 1.45; }
+    .step { background: var(--surface); border-radius: 18px; padding: 18px 16px; text-align: left; margin-bottom: 14px; }
+    .step b { display: block; font-size: 17px; margin-bottom: 4px; }
+    .step span { display: block; font-size: 14px; color: var(--label-2); margin-bottom: 12px; line-height: 1.4; }
+    .step .send { box-shadow: none; }
     .done .again { color: var(--accent); font-size: 16px; font-weight: 500; padding: 12px; }
 
     @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+    @keyframes pop { from { opacity: 0; transform: scale(.6); } }
     @keyframes draw { to { stroke-dashoffset: 0; } }
     @keyframes shake { 20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
@@ -106,9 +128,9 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="by"><i><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .2-3.2-.7-2.7-1.1-4.4-3.8-4.5-4-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></i>by sdhiryan</div>
+      <div class="by"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="5.5" cy="12" r="1.5" fill="#fff" stroke="none"/><path d="M9 8.5a5 5 0 0 1 0 7"/><path d="M12.5 6a8.5 8.5 0 0 1 0 12"/><path d="M16 3.5a12 12 0 0 1 0 17"/></svg></i>by sdhiryan</div>
       <h1>Get your shop’s tap&nbsp;page</h1>
-      <p class="lead">Customers tap your table stand and see your menu, reviews, Instagram and rewards. Fill this in about 3 minutes. It comes <b>straight to my WhatsApp</b>.<br>
+      <p class="lead">Customers tap your table stand or scan your QR and see your menu, reviews and Instagram. Takes about 3 minutes, and it comes <b>straight to my WhatsApp</b>.<br>
         <span style="font-size:14px">3 मिनट में भरें — सीधे मेरे WhatsApp पर आएगा।</span></p>
       <div class="meter"><i id="meter"></i></div>
       <div class="meter-label" id="meter-label"></div>
@@ -119,9 +141,13 @@
     <div class="done" id="done">
       <div class="check"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="26" cy="26" r="23"/><path d="M15 27l7 7 15-16"/></svg></div>
       <h2>Almost done!</h2>
-      <p>Press <b>Send</b> in WhatsApp. Then send these photos in the same chat:<br><span style="font-size:14px">WhatsApp में Send दबाएँ, फिर यही फ़ोटो उसी चैट में भेजें:</span></p>
-      <div class="card"><ul class="photos" id="photo-list-done"></ul></div>
-      <button class="send" id="resend" type="button" style="margin-bottom:6px"></button>
+      <p>Press <b>Send</b> in WhatsApp for your details, then send your photos below.<br><span style="font-size:14px">पहले WhatsApp में Send दबाएँ, फिर फ़ोटो भेजें।</span></p>
+      <div class="step" id="step-photos">
+        <b>Send your photos</b>
+        <span id="photos-hint"></span>
+        <button class="send" id="share" type="button"></button>
+      </div>
+      <button class="send" id="resend" type="button" style="background:#1c1c1e;box-shadow:none;margin-bottom:6px"></button>
       <button class="again" id="edit" type="button">Edit my details</button>
     </div>
   </div>
@@ -131,169 +157,250 @@
   <script>
   (() => {
     "use strict";
-    /* ---------- Where requests go ---------- */
+    /* ---------- Settings ---------- */
     const MY_WHATSAPP = "918533053912";
+    const ADVANCE = { vpa: "dhiryansd999@okicici", name: "Shubham Kumar", note: "Tap page advance" };
 
     const WA = '<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .2-3.2-.7-2.7-1.1-4.4-3.8-4.5-4-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 1.9 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>';
 
-    /* ---------- The details I need from every shop ---------- */
+    /* ---------- Questions ---------- */
     const FEATURES = [
-      { id: "Menu / price list", ic: "📖", sub: "Items and prices", on: true },
-      { id: "Google review", ic: "⭐", sub: "Get more 5-star reviews", on: true },
-      { id: "Instagram follow", ic: "📸", sub: "Grow your followers", on: true },
+      { id: "Menu", ic: "📖", sub: "Items and prices", on: true },
+      { id: "Google review", ic: "⭐", sub: "More 5-star reviews", on: true },
+      { id: "Instagram & YouTube", ic: "📸", sub: "Grow your followers", on: true },
       { id: "Directions", ic: "📍", sub: "Opens Google Maps", on: true },
+      { id: "Payment QR → review", ic: "💳", sub: "Customers pay you, then rate you", on: false },
+      { id: "NFC review card", ic: "🪪", sub: "Tap card opens review + follow", on: false },
       { id: "Rewards card", ic: "🎁", sub: "e.g. 8 visits = 1 free item", on: false },
-      { id: "Wi‑Fi", ic: "📶", sub: "Guests get the password in one tap", on: false },
+      { id: "Wi‑Fi", ic: "📶", sub: "Password in one tap", on: false },
       { id: "Anonymous feedback", ic: "💬", sub: "Hear complaints privately", on: true },
-      { id: "Mini game", ic: "🎮", sub: "Zero‑Kaata while customers wait", on: true },
-      { id: "Call / WhatsApp order", ic: "📞", sub: "One-tap ordering", on: false }
+      { id: "Mini game", ic: "🎮", sub: "Zero‑Kaata while waiting", on: true }
     ];
 
     const SECTIONS = [
+      { title: "What do you need?", hi: "आपको क्या चाहिए?", fields: [
+        { id: "need", label: "Choose one or more", type: "multi", required: true,
+          options: ["New tap page", "Extra NFC cards / stands", "Replace damaged card", "Renew my plan", "Update my page"] }
+      ]},
       { title: "Your shop", hi: "दुकान की जानकारी", fields: [
         { id: "shop", label: "Shop name", hi: "दुकान का नाम", required: true, placeholder: "e.g. Roms Pizza" },
-        { id: "type", label: "Type of shop", hi: "दुकान का प्रकार", type: "chips",
-          options: ["Café", "Restaurant", "Pizza / Fast food", "Sweets & Bakery", "Juice / Tea", "Salon / Parlour", "Gym", "Clothing", "Other"] },
-        { id: "food", label: "Food type", hi: "खाना", type: "chips", options: ["Pure Veg", "Veg + Non‑veg", "Not a food shop"] },
-        { id: "tagline", label: "Tagline / slogan", hi: "स्लोगन (अगर है)", placeholder: "e.g. Happiness is a slice of pizza" },
+        { id: "type", label: "Type of shop", hi: "दुकान का प्रकार", type: "chips", other: true,
+          options: ["Café", "Restaurant", "Pizza / Fast food", "Momos / Chinese", "Sweets & Bakery", "Juice / Tea", "Salon", "Gym", "Clothing"] },
         { id: "owner", label: "Owner name", hi: "मालिक का नाम", required: true, autocomplete: "name" },
-        { id: "phone", label: "Owner WhatsApp number", hi: "व्हाट्सऐप नंबर", required: true, type: "tel", autocomplete: "tel", placeholder: "10-digit number" },
-        { id: "address", label: "Address & area", hi: "पता", required: true, type: "textarea", placeholder: "Shop no., market, area, city" },
-        { id: "hours", label: "Opening hours", hi: "खुलने का समय", placeholder: "e.g. 11 AM – 11 PM, all days" }
+        { id: "phone", label: "Phone number", hi: "फ़ोन नंबर", required: true, type: "tel", autocomplete: "tel", placeholder: "10-digit number" },
+        { id: "address", label: "Address", hi: "पता", required: true, type: "textarea", placeholder: "Shop no., market, area, city" },
+        { id: "location", label: "Location", hi: "लोकेशन", type: "location" }
       ]},
-      { title: "Your links", hi: "लिंक — जो है वही डालें", note: "Paste whatever you have and skip the rest. I can find the others.", fields: [
-        { id: "maps", label: "Google Maps link", hi: "Maps → Share → Copy link", type: "url" },
-        { id: "review", label: "Google review link", hi: "Google Business Profile → Ask for reviews", type: "url" },
-        { id: "insta", label: "Instagram", placeholder: "@yourshop or profile link" },
-        { id: "fb", label: "Facebook page", type: "url" },
-        { id: "yt", label: "YouTube channel", type: "url" },
-        { id: "online", label: "Zomato / Swiggy / website", type: "textarea", placeholder: "One link per line" }
+      { title: "Online", hi: "ऑनलाइन (अगर है)", fields: [
+        { id: "insta", label: "Instagram", placeholder: "@yourshop or profile link", autocomplete: "off" },
+        { id: "youtube", label: "YouTube", placeholder: "@channel or link", autocomplete: "off" }
       ]},
+      { title: "Photos", hi: "फ़ोटो", fields: [
+        { id: "logo", label: "Logo", hi: "लोगो", type: "file" },
+        { id: "banner", label: "Banner / poster", hi: "बैनर", type: "file" },
+        { id: "menu", label: "Menu card", hi: "मेन्यू (सभी पेज)", type: "file", multiple: true }
+      ], note: "Pick them here. After sending your details, one tap shares them to my WhatsApp." },
       { title: "What should your page have?", hi: "पेज पर क्या-क्या चाहिए?", fields: [ { id: "features", type: "toggles" } ] },
-      { title: "Menu / price list", hi: "मेन्यू", showIf: "Menu / price list", fields: [
-        { id: "menuhow", label: "How will you share it?", type: "chips", options: ["I’ll send menu photos", "I’ll type it below"] },
-        { id: "menu", label: "Items & prices", hi: "(optional)", type: "textarea", placeholder: "Paneer Pizza – S ₹110 / M ₹230 / L ₹370\nCold Coffee – ₹110" },
-        { id: "bestsellers", label: "Top 3–5 best sellers", hi: "सबसे ज़्यादा बिकने वाले", placeholder: "Used in review suggestions" }
-      ]},
-      { title: "Rewards card", hi: "रिवॉर्ड कार्ड", showIf: "Rewards card", fields: [
-        { id: "stamps", label: "Visits / stamps needed", type: "number", placeholder: "e.g. 8" },
-        { id: "reward", label: "Free reward", hi: "क्या फ़्री मिलेगा", placeholder: "e.g. Free Chocolava Cake" }
-      ]},
-      { title: "Wi‑Fi", hi: "वाई-फ़ाई", showIf: "Wi‑Fi", fields: [
-        { id: "ssid", label: "Wi‑Fi name", autocomplete: "off" },
-        { id: "wifipass", label: "Wi‑Fi password", autocomplete: "off" }
-      ]},
-      { title: "Orders", hi: "ऑर्डर", showIf: "Call / WhatsApp order", fields: [
-        { id: "callno", label: "Number for calls", type: "tel" },
-        { id: "orderwa", label: "WhatsApp number for orders", type: "tel" }
-      ]},
-      { title: "Look & feel", hi: "डिज़ाइन", fields: [
-        { id: "colors", label: "Brand colours", hi: "(optional)", placeholder: "e.g. Blue & yellow, or “same as logo”" },
-        { id: "lang", label: "Review suggestions language", type: "chips", options: ["Hinglish", "English", "Both"] }
-      ]},
-      { title: "Table stands", hi: "NFC स्टैंड", fields: [
-        { id: "stands", label: "How many tables / counters?", hi: "कितने स्टैंड चाहिए", type: "number", placeholder: "e.g. 10" },
-        { id: "notes", label: "Anything else?", hi: "कुछ और?", type: "textarea" }
-      ]}
+      { title: "Advance payment", hi: "एडवांस पेमेंट", fields: [ { id: "advance", type: "advance" } ] }
     ];
 
-    const PHOTOS = [
-      ["🎨", "Logo", "Original file is best (PNG / PDF / CDR from your printer). A clear, straight photo also works."],
-      ["📋", "Menu card", "Every page, flat and in good light"],
-      ["🍕", "3–5 best product photos", "Your real food or products, used as the page background"],
-      ["🏪", "Shop front / inside photo", "Optional"]
-    ];
+    /* ---------- Helpers ---------- */
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const buzz = (ms) => { if (navigator.userActivation?.hasBeenActive !== false) navigator.vibrate?.(ms); };
+    const form = $("#form");
+    const DRAFT = "tap-page-form-draft-v2";
+    const POS = "tap-page-form-scroll";
+    const draft = (() => { try { return JSON.parse(localStorage.getItem(DRAFT)) || {}; } catch { return {}; } })();
+    const upiLink = () => `upi://pay?pa=${ADVANCE.vpa}&pn=${encodeURIComponent(ADVANCE.name)}&cu=INR&tn=${encodeURIComponent(ADVANCE.note)}`;
+
+    // Photos live in IndexedDB so they survive leaving for WhatsApp and coming back
+    const idb = (() => {
+      let dbp;
+      const open = () => dbp ||= new Promise((res, rej) => {
+        const r = indexedDB.open("tap-page-form", 1);
+        r.onupgradeneeded = () => r.result.createObjectStore("files");
+        r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+      });
+      const run = async (mode, fn) => {
+        const db = await open();
+        return new Promise((res, rej) => {
+          const t = db.transaction("files", mode), req = fn(t.objectStore("files"));
+          t.oncomplete = () => res(req?.result); t.onerror = () => rej(t.error);
+        });
+      };
+      return { set: (k, v) => run("readwrite", (s) => s.put(v, k)), get: (k) => run("readonly", (s) => s.get(k)), del: (k) => run("readwrite", (s) => s.delete(k)) };
+    })();
+    const files = {};                                   // field id -> File[]
 
     /* ---------- Render ---------- */
-    const $ = (s, r = document) => r.querySelector(s);
-    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-    const form = $("#form");
-    const DRAFT = "tap-page-form-draft";
-    const draft = (() => { try { return JSON.parse(localStorage.getItem(DRAFT)) || {}; } catch { return {}; } })();
-
     const fieldHTML = (f) => {
       const lab = `${esc(f.label)}${f.required ? '<span class="req">*</span>' : ""}${f.hi ? `<small>${esc(f.hi)}</small>` : ""}`;
-      if (f.type === "toggles") return FEATURES.map((o, i) => {
+      if (f.type === "toggles") return FEATURES.map((o) => {
         const on = draft.features ? draft.features.includes(o.id) : o.on;
         return `<label class="toggle"><span class="ic">${o.ic}</span><span class="t">${esc(o.id)}<small>${esc(o.sub)}</small></span>
           <span class="switch"><input type="checkbox" data-feature="${esc(o.id)}" ${on ? "checked" : ""}><span></span></span></label>`;
       }).join("");
-      if (f.type === "chips") return `<div class="row" data-id="${f.id}"><span class="lbl">${lab}</span><div class="chips" role="group">
-          ${f.options.map((o) => `<button type="button" class="chip" aria-pressed="${draft[f.id] === o}" data-val="${esc(o)}">${esc(o)}</button>`).join("")}</div></div>`;
-      const attrs = `id="f-${f.id}" name="${f.id}" ${f.placeholder ? `placeholder="${esc(f.placeholder)}"` : ""} ${f.autocomplete ? `autocomplete="${f.autocomplete}"` : ""}`;
+      if (f.type === "chips" || f.type === "multi") {
+        const saved = f.id in draft ? draft[f.id] : (f.def || (f.type === "multi" ? [] : ""));
+        const has = (o) => f.type === "multi" ? saved.includes(o) : saved === o;
+        const isOther = f.other && saved && !f.options.includes(saved);
+        return `<div class="row" data-id="${f.id}" data-type="${f.type}"><span class="lbl">${lab}</span><div class="chips" role="group">
+          ${f.options.map((o) => `<button type="button" class="chip" aria-pressed="${has(o)}" data-val="${esc(o)}">${esc(o)}</button>`).join("")}
+          ${f.other ? `<button type="button" class="chip" aria-pressed="${!!isOther}" data-other>Other ✎</button>` : ""}</div>
+          ${f.other ? `<div class="other${isOther ? " show" : ""}"><input id="f-${f.id}-other" placeholder="Type here" value="${esc(isOther ? saved : "")}" autocomplete="off"></div>` : ""}</div>`;
+      }
+      if (f.type === "location") return `<div class="row" data-id="location"><span class="lbl">${lab}</span>
+          <button type="button" class="loc${draft.location ? " ok" : ""}" id="loc-btn">${draft.location ? "✓ Location added" : "📍 Use my current location"}</button>
+          <span class="loc-status" id="loc-status">${draft.location ? "" : "If you are at the shop right now"}</span>
+          <input type="hidden" id="f-location" value="${esc(draft.location || "")}">
+          <span class="or">or paste a Google Maps link</span>
+          <input id="f-maps" type="url" placeholder="Maps → Share → Copy link" value="${esc(draft.maps || "")}" autocomplete="off"></div>`;
+      if (f.type === "file") return `<div class="row" data-id="${f.id}"><span class="lbl">${lab}</span>
+          <div class="pick"><label class="pick-btn">📷 ${f.multiple ? "Add photos" : "Choose photo"}<input type="file" accept="image/*" data-file="${f.id}" ${f.multiple ? "multiple" : ""}></label>
+          <button type="button" class="clear" data-clear="${f.id}" hidden>Remove</button></div>
+          <div class="thumbs" id="thumbs-${f.id}"></div></div>`;
+      if (f.type === "advance") return `<div class="row" data-id="advance" style="text-align:center">
+          <img class="qr" src="upi-qr.png" alt="UPI QR code for ${esc(ADVANCE.name)}">
+          <div class="upi"><span>UPI ID: <code>${esc(ADVANCE.vpa)}</code></span><button type="button" id="copy-upi">Copy</button></div>
+          <a class="paybtn" id="pay-adv" href="#">Pay with UPI app</a>
+          <a class="upi" href="upi-qr.png" download="sdhiryan-upi-qr.png" style="color:var(--accent);font-weight:600;text-decoration:none">Save QR to gallery</a></div>
+        <div class="row" data-id="paid" data-type="chips"><span class="lbl">Payment status</span><div class="chips">
+          ${["Paid", "Will pay later"].map((o) => `<button type="button" class="chip" aria-pressed="${draft.paid === o}" data-val="${o}">${o}</button>`).join("")}</div></div>
+        <div class="row" data-id="payshot"><span class="lbl">Payment screenshot <small>(optional)</small></span>
+          <div class="pick"><label class="pick-btn">🧾 Add screenshot<input type="file" accept="image/*" data-file="payshot"></label>
+          <button type="button" class="clear" data-clear="payshot" hidden>Remove</button></div>
+          <div class="thumbs" id="thumbs-payshot"></div></div>`;
+      const attrs = `id="f-${f.id}" ${f.placeholder ? `placeholder="${esc(f.placeholder)}"` : ""} ${f.autocomplete ? `autocomplete="${f.autocomplete}"` : ""}`;
       const input = f.type === "textarea"
-        ? `<textarea ${attrs} rows="3">${esc(draft[f.id] || "")}</textarea>`
-        : `<input ${attrs} type="${f.type === "number" ? "text" : f.type || "text"}" ${f.type === "number" || f.type === "tel" ? 'inputmode="numeric"' : ""} value="${esc(draft[f.id] || "")}">`;
+        ? `<textarea ${attrs} rows="2">${esc(draft[f.id] || "")}</textarea>`
+        : `<input ${attrs} type="${f.type || "text"}" ${f.type === "tel" ? 'inputmode="numeric" maxlength="14"' : ""} value="${esc(draft[f.id] || "")}">`;
       return `<div class="row" data-id="${f.id}"><label for="f-${f.id}">${lab}</label>${input}</div>`;
     };
 
-    form.innerHTML = SECTIONS.map((s, i) => `<section data-show="${esc(s.showIf || "")}" style="animation-delay:${120 + i * 50}ms">
+    form.innerHTML = SECTIONS.map((s, i) => `<section style="animation-delay:${120 + i * 50}ms">
         <h2>${esc(s.title)}</h2><p class="hi">${esc(s.hi)}</p>
         <div class="card">${s.fields.map(fieldHTML).join("")}</div>
         ${s.note ? `<p class="note">${esc(s.note)}</p>` : ""}
-      </section>`).join("") + `<section style="animation-delay:${120 + SECTIONS.length * 50}ms">
-        <h2>Photos to send after</h2><p class="hi">ये फ़ोटो WhatsApp पर भेजें</p>
-        <div class="card"><ul class="photos" id="photo-list"></ul></div>
-        <p class="note">WhatsApp links can’t carry photos, so send these in the same chat right after your message.</p></section>`;
+      </section>`).join("");
 
-    const photosHTML = PHOTOS.map(([ic, t, s]) => `<li><span>${ic}</span><span>${esc(t)}<small>${esc(s)}</small></span></li>`).join("");
-    $("#photo-list").innerHTML = photosHTML;
-    $("#photo-list-done").innerHTML = photosHTML;
     $("#send").innerHTML = `${WA}<span>Send on WhatsApp</span>`;
     $("#resend").innerHTML = `${WA}<span>Open WhatsApp again</span>`;
+    $("#share").innerHTML = `${WA}<span>Send photos to sdhiryan</span>`;
+    $("#pay-adv").href = upiLink();
 
-    /* ---------- Behaviour ---------- */
+    /* ---------- Values ---------- */
+    const fields = SECTIONS.flatMap((s) => s.fields);
     const val = (id) => {
-      const chip = form.querySelector(`.row[data-id="${id}"] .chip[aria-pressed="true"]`);
-      if (chip) return chip.dataset.val;
-      const el = form.querySelector(`#f-${id}`);
+      const row = form.querySelector(`.row[data-id="${id}"]`);
+      if (row?.dataset.type === "multi") return $$('.chip[aria-pressed="true"]', row).map((c) => c.dataset.val);
+      if (row?.dataset.type === "chips") {
+        const chip = $('.chip[aria-pressed="true"]', row);
+        if (!chip) return "";
+        return chip.hasAttribute("data-other") ? ($(`#f-${id}-other`)?.value.trim() || "") : chip.dataset.val;
+      }
+      const el = $(`#f-${id}`);
       return el ? el.value.trim() : "";
     };
-    const features = () => [...form.querySelectorAll("[data-feature]")].filter((c) => c.checked).map((c) => c.dataset.feature);
+    const features = () => $$("[data-feature]", form).filter((c) => c.checked).map((c) => c.dataset.feature);
+    const filled = (v) => Array.isArray(v) ? v.length > 0 : !!v;
 
-    function syncSections() {
-      const on = features();
-      form.querySelectorAll("section[data-show]").forEach((sec) => {
-        const need = sec.dataset.show;
-        if (!need) return;
-        const show = on.includes(need);
-        if (show && sec.hidden) { sec.classList.remove("reveal"); void sec.offsetWidth; sec.classList.add("reveal"); }
-        sec.hidden = !show;
-      });
-    }
-
-    const REQUIRED = SECTIONS.flatMap((s) => s.fields).filter((f) => f.required);
+    const REQUIRED = fields.filter((f) => f.required);
     function progress() {
-      const all = SECTIONS.flatMap((s) => s.fields).filter((f) => f.type !== "toggles");
-      const filled = all.filter((f) => val(f.id)).length;
-      $("#meter").style.width = `${Math.round((filled / all.length) * 100)}%`;
-      const left = REQUIRED.filter((f) => !val(f.id)).length;
+      const counted = fields.filter((f) => !["toggles", "advance"].includes(f.type));
+      const done = counted.filter((f) => f.type === "file" ? files[f.id]?.length : f.type === "location" ? (val("location") || val("maps")) : filled(val(f.id))).length;
+      $("#meter").style.width = `${Math.round((done / counted.length) * 100)}%`;
+      const left = REQUIRED.filter((f) => !filled(val(f.id))).length;
       $("#meter-label").textContent = left ? `${left} required field${left > 1 ? "s" : ""} left` : "All required details filled ✓";
     }
-
     function saveDraft() {
-      const d = { features: features() };
-      SECTIONS.flatMap((s) => s.fields).forEach((f) => { if (f.type !== "toggles") d[f.id] = val(f.id); });
+      const d = { features: features(), maps: val("maps"), paid: val("paid") };
+      fields.forEach((f) => { if (!["toggles", "advance", "file"].includes(f.type)) d[f.id] = val(f.id); });
       localStorage.setItem(DRAFT, JSON.stringify(d));
     }
 
+    /* ---------- Photos ---------- */
+    function showThumbs(id) {
+      const box = $(`#thumbs-${id}`);
+      box.innerHTML = "";
+      (files[id] || []).forEach((f) => { const img = new Image(); img.src = URL.createObjectURL(f); img.alt = f.name; box.append(img); });
+      const clr = form.querySelector(`[data-clear="${id}"]`);
+      if (clr) clr.hidden = !(files[id] || []).length;
+    }
+    form.addEventListener("change", async (e) => {
+      const inp = e.target.closest("[data-file]");
+      if (inp) {
+        const id = inp.dataset.file;
+        const picked = [...inp.files];
+        files[id] = inp.multiple ? [...(files[id] || []), ...picked] : picked.slice(0, 1);
+        inp.value = "";
+        showThumbs(id); progress(); buzz(8);
+        try { await idb.set(id, files[id]); } catch {}
+        if (id === "payshot" && files[id].length) {           // a screenshot means it's paid
+          const row = form.querySelector('.row[data-id="paid"]');
+          $$(".chip", row).forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.val === "Paid")));
+          saveDraft();
+        }
+        return;
+      }
+      if (e.target.matches("[data-feature]")) { buzz(6); saveDraft(); progress(); }
+    });
+    form.addEventListener("click", async (e) => {
+      const clr = e.target.closest("[data-clear]");
+      if (!clr) return;
+      const id = clr.dataset.clear;
+      files[id] = []; showThumbs(id); progress();
+      try { await idb.del(id); } catch {}
+    });
+    const PHOTO_IDS = ["logo", "banner", "menu", "payshot"];
+    const photosReady = Promise.all(PHOTO_IDS.map(async (id) => { try { files[id] = (await idb.get(id)) || []; } catch { files[id] = []; } showThumbs(id); }))
+      .then(progress);
+
+    /* ---------- Chips, location, advance ---------- */
     form.addEventListener("click", (e) => {
       const chip = e.target.closest(".chip");
       if (!chip) return;
+      const row = chip.closest(".row");
       const pressed = chip.getAttribute("aria-pressed") === "true";
-      chip.parentElement.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", "false"));
+      if (row.dataset.type !== "multi") $$(".chip", row).forEach((c) => c.setAttribute("aria-pressed", "false"));
       chip.setAttribute("aria-pressed", String(!pressed));
-      navigator.vibrate?.(6);
-      saveDraft(); progress();
+      const other = $(".other", row);
+      if (other) {
+        const show = chip.hasAttribute("data-other") && !pressed;
+        other.classList.toggle("show", show);
+        if (show) $("input", other).focus();
+      }
+      row.classList.remove("invalid");
+      buzz(6); saveDraft(); progress();
     });
     form.addEventListener("input", () => { saveDraft(); progress(); });
-    form.addEventListener("change", (e) => { if (e.target.matches("[data-feature]")) { navigator.vibrate?.(6); syncSections(); saveDraft(); progress(); } });
 
+    form.addEventListener("click", (e) => {
+      if (!e.target.closest("#loc-btn")) return;
+      const btn = $("#loc-btn"), st = $("#loc-status");
+      if (!navigator.geolocation) { st.textContent = "Location isn’t available on this phone. Paste a Maps link instead."; return; }
+      btn.textContent = "Finding location…";
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const { latitude: la, longitude: lo } = pos.coords;
+        $("#f-location").value = `https://maps.google.com/?q=${la.toFixed(6)},${lo.toFixed(6)}`;
+        btn.textContent = "✓ Location added"; btn.classList.add("ok"); st.textContent = "";
+        buzz(10); saveDraft(); progress();
+      }, () => { btn.textContent = "📍 Use my current location"; st.textContent = "Couldn’t get location. Paste a Maps link instead."; },
+      { enableHighAccuracy: true, timeout: 15000 });
+    });
+
+    $("#copy-upi").addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(ADVANCE.vpa); $("#copy-upi").textContent = "Copied ✓"; } catch {}
+      setTimeout(() => { $("#copy-upi").textContent = "Copy"; }, 1800);
+    });
+
+    /* ---------- Validate & send ---------- */
     function validate() {
       let first = null;
       REQUIRED.forEach((f) => {
         const row = form.querySelector(`.row[data-id="${f.id}"]`);
-        let ok = !!val(f.id);
+        let ok = filled(val(f.id));
         if (ok && f.type === "tel") ok = val(f.id).replace(/\D/g, "").length >= 10;
         row.classList.toggle("invalid", !ok);
         if (!ok && !first) first = row;
@@ -301,44 +408,76 @@
       if (first) {
         first.scrollIntoView({ behavior: "smooth", block: "center" });
         first.classList.remove("shake"); void first.offsetWidth; first.classList.add("shake");
-        navigator.vibrate?.(40);
+        buzz(40);
         return false;
       }
       return true;
     }
 
     function message() {
-      const L = ["*New tap-page request*", ""];
-      SECTIONS.forEach((s) => {
-        if (s.showIf && !features().includes(s.showIf)) return;
-        const lines = [];
-        s.fields.forEach((f) => {
-          if (f.type === "toggles") { const on = features(); if (on.length) lines.push(on.map((x) => `✓ ${x}`).join("\n")); return; }
-          const v = val(f.id);
-          if (v) lines.push(f.type === "textarea" && v.includes("\n") ? `${f.label}:\n${v}` : `${f.label}: ${v}`);
-        });
-        if (lines.length) L.push(`*${s.title}*`, ...lines, "");
-      });
-      L.push("_Sending logo, menu and photos next._");
-      return L.join("\n");
+      const L = ["*New request — tap page*", ""];
+      const line = (k, v) => { if (filled(v)) L.push(`${k}: ${Array.isArray(v) ? v.join(", ") : v}`); };
+      L.push("*Need*", val("need").join(", "), "");
+      L.push("*Shop*");
+      line("Name", val("shop")); line("Type", val("type")); line("Owner", val("owner")); line("Phone", val("phone"));
+      line("Address", val("address")); line("Location", val("location")); line("Maps link", val("maps"));
+      L.push("");
+      if (val("insta") || val("youtube")) { L.push("*Online*"); line("Instagram", val("insta")); line("YouTube", val("youtube")); L.push(""); }
+      const on = features();
+      if (on.length) L.push("*Page should have*", on.map((x) => `✓ ${x}`).join("\n"), "");
+      const ph = [["Logo", "logo"], ["Banner", "banner"], ["Menu", "menu"]].map(([n, id]) => files[id]?.length ? `${n} (${files[id].length})` : "").filter(Boolean);
+      L.push("*Photos*", ph.length ? `${ph.join(", ")}: sending next` : "Will send in chat", "");
+      L.push("*Advance*", val("paid") || "Not chosen");
+      if (files.payshot?.length) L.push("Screenshot: sending next");
+      L.push("");
+      const ref = new URLSearchParams(location.search).get("ref");
+      if (ref) L.push(`Saw it at: ${ref}`);
+      return L.join("\n").trim();
+    }
+
+    const allFiles = () => PHOTO_IDS.flatMap((id) => files[id] || []);
+    function prepareDone() {
+      const n = allFiles().length;
+      const canShare = !!(n && navigator.canShare?.({ files: allFiles() }));
+      $("#photos-hint").textContent = n
+        ? (canShare ? `${n} photo${n > 1 ? "s" : ""} ready. Tap below, choose WhatsApp, then pick the sdhiryan chat (it will be at the top).`
+                    : "Your phone can’t share photos from here. In WhatsApp, attach your logo, banner, menu and payment screenshot in the same chat.")
+        : "In the same WhatsApp chat, send your logo, banner / poster and menu card photos.";
+      $("#share").hidden = !canShare;
     }
 
     let waLink = "";
     function send() {
       if (!validate()) return;
       waLink = `https://wa.me/${MY_WHATSAPP}?text=${encodeURIComponent(message())}`;
+      localStorage.setItem(POS, String(Math.round(scrollY)));
       document.body.classList.add("sent");
-      sessionStorage.setItem("tap-form-sent", "1");          // coming Back from WhatsApp shows the photo checklist
+      sessionStorage.setItem("tap-form-sent", "1");
+      prepareDone();
       scrollTo({ top: 0 });
-      setTimeout(() => { location.href = waLink; }, 700);    // same tab: Back returns here
+      setTimeout(() => { location.href = waLink; }, 700);       // same tab: Back returns here
     }
     $("#send").addEventListener("click", send);
     $("#resend").addEventListener("click", () => { location.href = waLink || `https://wa.me/${MY_WHATSAPP}?text=${encodeURIComponent(message())}`; });
-    $("#edit").addEventListener("click", () => { document.body.classList.remove("sent"); sessionStorage.removeItem("tap-form-sent"); });
+    $("#share").addEventListener("click", async () => {
+      try { await navigator.share({ files: allFiles(), text: `Photos for ${val("shop") || "my shop"}` }); buzz(15); }
+      catch (err) { if (err?.name !== "AbortError") $("#photos-hint").textContent = "Couldn’t share from here. Please attach the photos in WhatsApp."; }
+    });
 
-    syncSections();
+    /* ---------- Remember position ---------- */
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    const restore = () => { const y = +localStorage.getItem(POS) || 0; if (y && !document.body.classList.contains("sent")) scrollTo(0, y); };
+    const savePos = () => { if (!document.body.classList.contains("sent")) localStorage.setItem(POS, String(Math.round(scrollY))); };
+    let posTimer = 0;
+    addEventListener("scroll", () => { clearTimeout(posTimer); posTimer = setTimeout(savePos, 150); }, { passive: true });
+    addEventListener("pagehide", savePos);
+    document.addEventListener("visibilitychange", () => { if (document.hidden) savePos(); });
+    addEventListener("pageshow", restore);
+    $("#edit").addEventListener("click", () => { document.body.classList.remove("sent"); sessionStorage.removeItem("tap-form-sent"); requestAnimationFrame(restore); });
+
     progress();
-    if (sessionStorage.getItem("tap-form-sent")) document.body.classList.add("sent");
+    if (sessionStorage.getItem("tap-form-sent")) { document.body.classList.add("sent"); photosReady.then(prepareDone); }
+    else restore();
   })();
   </script>
 </body>
